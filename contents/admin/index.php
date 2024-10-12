@@ -13,14 +13,10 @@ $query = "SELECT news.*,user.username,categories.name FROM news JOIN user ON new
 
 $result = mysqli_query($conn, $query);
 
-// echo
-
 ?>
 
 <style>
     .img-thumbnail {
-        /* background-color: red; */
-        /* aspect-ratio: 1 / 1; Mengatur rasio aspek 16:9 */
         width: 7.7rem;
         height: 5.5em;
 
@@ -28,19 +24,23 @@ $result = mysqli_query($conn, $query);
 </style>
 <nav class="nav">
     <a href="../logout" class="nav-link">Logout</a>
+    <p>Halo, <?= $_SESSION['username'] ?></p>
+
 </nav>
 
 <div class="container mt-5">
     <?php if (isset($_SESSION['message'])) : ?>
-        <div class="alert alert-dismissible fade show alert-info text-center" role="alert">
+        <div id="alert-box" class="alert alert-dismissible fade show alert-info text-center" role="alert">
             <p><?= $_SESSION['message'] ?></p>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 
         </div>
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
-    <div class="d-flex justify-content-center">
+    <div class="d-flex gap-2 justify-content-center">
         <a href="create" class="btn btn-primary">Buat Berita</a>
+
+        <?= $_SESSION['role'] == 'superadmin' ? '<a href="category" class="btn btn-success">Kelola category</a>' : '' ?>
     </div>
     <h2 class="fs-4 fw-medium">Kelola berita</h2>
     <table class="table table-striped table-hover">
@@ -81,3 +81,13 @@ $result = mysqli_query($conn, $query);
             </tbody>
     </table>
 </div>
+
+<script>
+    setTimeout(function(){
+        let alertBox = document.getElementById('alert-box')
+        if(alertBox) {
+            let alert = new bootstrap.Alert(alertBox)
+            alert.close(); 
+        }
+    }, 2500)
+</script>

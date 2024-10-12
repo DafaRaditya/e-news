@@ -13,9 +13,21 @@ switch ($url) {
     case 'admin/store':
         require_once 'contents/admin/storeNews.php';
         break;
-        case 'admin/delete':
-            require_once 'contents/admin/deleteNews.php';
-            break;
+    case 'admin/delete':
+        require_once 'contents/admin/deleteNews.php';
+        break;
+    case 'admin/category':
+        require_once 'contents/admin/indexCategory.php';
+        break;
+    case 'admin/createCategory':
+        require_once 'contents/admin/createCategory.php';
+        break;
+    case 'admin/storeCategory':
+        require_once 'contents/admin/storeCategory.php';
+        break;
+    case 'admin/deleteCategory':
+        require_once 'contents/admin/deleteCategory.php';
+        break;
     case 'login':
         require_once 'auth/login.php';
         break;

@@ -7,10 +7,10 @@ function isLogin()
         // Redirect berdasarkan role
         if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "superadmin") {
             header('Location: admin/');
-            exit();  
+            exit();
         } else {
             header('Location: /e-news/index/');
-            exit();  
+            exit();
         }
     }
 }
@@ -20,18 +20,30 @@ function isNotLogin()
     // Pengecekan user belum login
     if (!isset($_SESSION['isLogin']) || $_SESSION['isLogin'] !== true) {
         header('Location: /e-news/login');
-        exit();  
+        exit();
     }
 }
 
-function isAdmin() {
-    if(isset($_SESSION['role'])){
+function isAdmin()
+{
+    if (isset($_SESSION['role'])) {
         if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "superadmin") {
             return true;
+        } else {
+            header('Location: /e-news/index');
+            exit();
         }
-        else{
-           header('Location: /e-news/index');
-           exit();
+    }
+}
+
+function isSuperAdmin()
+{
+    if (isset($_SESSION['role'])) {
+        if ($_SESSION['role'] == 'superadmin') {
+            return true;
+        }else{
+            header('Location: /e-news/index');
+            exit();
         }
     }
 }
