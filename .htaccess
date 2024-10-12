@@ -1,0 +1,10 @@
+RewriteEngine On
+RewriteBase /e-news/
+
+# Jngan izinkan akses ke direktori tertentu
+RewriteRule ^(config|contents|middlewares)/ - [F,L]
+
+#klo ga direktori atau file, lempar ke index.php dengan parameter URL
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
