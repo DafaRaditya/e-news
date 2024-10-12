@@ -2,7 +2,7 @@
 session_start();
 require_once './middlewares/authMiddleware.php';
 isNotLogin();
-// isAdmin();
+isAdmin();
 require_once './config/db.php';
 include_once './templates/layout.php';
 
@@ -18,8 +18,8 @@ $result = mysqli_query($conn, $query);
 ?>
 
 <style>
-    .img-thumbnail{
-    /* background-color: red; */
+    .img-thumbnail {
+        /* background-color: red; */
         /* aspect-ratio: 1 / 1; Mengatur rasio aspek 16:9 */
         width: 7.7rem;
         height: 5.5em;
@@ -49,6 +49,7 @@ $result = mysqli_query($conn, $query);
                 <td>No</td>
                 <td>Judul</td>
                 <td>Kategori</td>
+                <td>Gambar</td>
                 <td>Author</td>
                 <td>Status</td>
                 <td>Aksi</td>
@@ -63,15 +64,15 @@ $result = mysqli_query($conn, $query);
                     <td><?= $row['title'] ?></td>
                     <td><?= $row['name'] ?></td> <!-- kategory -->
                     <td>
-                    <?= isset($row['image']) ? "<img class='img-thumbnail' src='./contents/assets/" . $row['image'] . "'  alt=''>" : "Tidak ada gambar"; ?>
+                        <?= isset($row['image']) ? "<img class='img-thumbnail' src='./contents/assets/" . $row['image'] . "'  alt=''>" : "Tidak ada gambar"; ?>
                     </td>
 
                     <td><?= $row['username'] ?></td>
                     <td><?= $row['status'] ?></td>
                     <td>
                         <form action="delete" method="post" onsubmit="return confirm('Yakin ingin menghapus data?')">
-                        <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                        <button type="submit" class="btn btn-danger">Hapus</button>
+                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                            <button type="submit" class="btn btn-danger">Hapus</button>
                         </form>
                         <!-- <a href="delete?id=<?= $row['id'] ?>" class="btn btn-danger" onclick="confirm('Yakin ingin menghapus data?')">Hapus</a> -->
                     </td>

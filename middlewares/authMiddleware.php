@@ -23,3 +23,15 @@ function isNotLogin()
         exit();  
     }
 }
+
+function isAdmin() {
+    if(isset($_SESSION['role'])){
+        if ($_SESSION['role'] == "admin" || $_SESSION['role'] == "superadmin") {
+            return true;
+        }
+        else{
+           header('Location: /e-news/index');
+           exit();
+        }
+    }
+}
