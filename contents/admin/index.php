@@ -57,14 +57,23 @@ $result = mysqli_query($conn, $query);
         </thead>
         <?php
         $i = 1;
-        while ($row = mysqli_fetch_array($result)) : ?>
+        while ($row = mysqli_fetch_array($result)) :  ?>
             <tbody>
                 <tr>
                     <td><?= $i++ ?></td>
                     <td><?= $row['title'] ?></td>
                     <td><?= $row['name'] ?></td> <!-- kategory -->
+                    <td><?= $row['image'] ?></td> <!-- kategory -->
                     <td>
-                        <?= isset($row['image']) ? "<img class='img-thumbnail' src='./contents/assets/" . $row['image'] . "'  alt=''>" : "Tidak ada gambar"; ?>
+                        <?php if (isset($row['image'])): ?>
+                            <img class='img-thumbnail'
+                            src='../../contents/assets/Jujutsu.jpeg ?>'
+
+                                alt='gambar berita'>
+                        <?php else: ?>
+                            <p>Tidak ada gambar</p>
+                        <?php endif; ?>
+
                     </td>
 
                     <td><?= $row['username'] ?></td>
@@ -83,11 +92,11 @@ $result = mysqli_query($conn, $query);
 </div>
 
 <script>
-    setTimeout(function(){
+    setTimeout(function() {
         let alertBox = document.getElementById('alert-box')
-        if(alertBox) {
+        if (alertBox) {
             let alert = new bootstrap.Alert(alertBox)
-            alert.close(); 
+            alert.close();
         }
     }, 2500)
 </script>

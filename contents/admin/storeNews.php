@@ -18,7 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $foto_produk = null;
     if ($_FILES['image']['error'] == UPLOAD_ERR_OK) {
         $foto_produk = $_FILES['image']['name'];
-        $upload_dir = '../contents/assets/';
+        $upload_dir = './contents/assets/';
+
         move_uploaded_file($_FILES['image']['tmp_name'], $upload_dir . $foto_produk);
     }
     $query = "INSERT INTO news (title, content, date, image, status, category_id, user_id) 

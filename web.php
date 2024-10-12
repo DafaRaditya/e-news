@@ -37,7 +37,14 @@ switch ($url) {
     case 'logout':
         require_once 'auth/logout.php';
         break;
-
+    case 'news':
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        if ($id) {
+            require_once 'contents/user/news.php';
+        } else {
+            echo 'Berita tidak ditemukan';
+        }
+        break;
     default:
         echo 'Alamat tidak ditemukan';
         break;
