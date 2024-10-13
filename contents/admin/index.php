@@ -6,12 +6,41 @@ isAdmin();
 require_once './config/db.php';
 include_once './templates/layout.php';
 
+// menangani update status
+
+if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['id']) && isset($_POST['status'])) {
+    $id = intval($_POST['id']);
+    $status = $_POST['status'];
+
+    $sql = "UPDATE news SET status = '$status' WHERE id = $id";
+
+    $result = mysqli_query($conn, $sql);
+    if ($result && mysqli_affected_rows($conn)) {
+        $_SESSION['message'] = "Status berhasil diubah menjadi $status.";
+    } else {
+        $_SESSION['message'] = "Error: " . mysqli_error($conn);
+    }
+    header("Location: index");
+    exit();
+
+}
+
+
+
+// ambil data berita
 $usr_id = $_SESSION['userId'];
 
 $query = "SELECT news.*,user.username,categories.name FROM news JOIN user ON news.user_id = user.id JOIN categories ON news.category_id = categories.id
     WHERE news.user_id = '$usr_id'";
 
 $result = mysqli_query($conn, $query);
+
+function updateStatus($id, $status)
+{
+    global $conn;
+    $query = "UPDATE news SET status = '$status' WHERE id = $id";
+    mysqli_query($conn, $query);
+}
 
 ?>
 
@@ -38,7 +67,7 @@ $result = mysqli_query($conn, $query);
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
     <div class="d-flex gap-2 justify-content-center">
-        <a href="create" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i> Berita</a>  
+        <a href="create" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i> Berita</a>
 
         <?= $_SESSION['role'] == 'superadmin' ? '<a href="category" class="btn btn-success"> <i class="bi bi-gear-fill"></i> Kelola category</a>' : '' ?>
     </div>
@@ -66,7 +95,7 @@ $result = mysqli_query($conn, $query);
                     <td>
                         <?php if (isset($row['image'])): ?>
                             <img class='img-thumbnail'
-                            src='/e-news/contents/assets/images/<?= $row['image']?>'
+                                src='/e-news/contents/assets/images/<?= $row['image'] ?>'
 
                                 alt='gambar berita'>
                         <?php else: ?>
@@ -76,13 +105,34 @@ $result = mysqli_query($conn, $query);
                     </td>
 
                     <td><?= $row['username'] ?></td>
-                    <td><?= $row['status'] ?></td>
                     <td>
-                        <form action="delete" method="post" onsubmit="return confirm('Yakin ingin menghapus data?')">
-                            <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
-                        </form>
-                        <!-- <a href="delete?id=<?= $row['id'] ?>" class="btn btn-danger" onclick="confirm('Yakin ingin menghapus data?')">Hapus</a> -->
+
+                        <?php if ($row['status'] == 'aktif') : ?>
+
+                            <span class="badge bg-success">Aktif</span>
+                        <?php else : ?>
+                            <span class="badge bg-danger">Nonaktif</span>
+                        <?php endif ?>
+                    </td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <!-- update status data -->
+                            <form action="" method="post" onsubmit="return confirm('Yakin ingin mengubah status?')">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <input type="hidden" name="status" value="<?= $row['status'] == 'aktif' ? 'nonaktif' : 'aktif' ?>">
+                                <button type="submit" class="btn <?= $row['status'] == 'aktif' ? 'btn-danger' : 'btn-success' ?>">
+                                    <?= $row['status'] == 'aktif' ? 'Nonaktif' : 'Aktif' ?>
+                                </button>
+                            </form>
+                            <!-- delete data -->
+                            <form action="delete" method="post" onsubmit="return confirm('Yakin ingin menghapus data?')">
+                                <input type="hidden" name="id" value="<?= $row['id'] ?>">
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
+                            </form>
+                        </div>
+
+
+
                     </td>
                 </tr>
             <?php endwhile; ?>
