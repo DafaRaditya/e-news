@@ -16,7 +16,7 @@ include_once './templates/layout.php';
             </div>
             <div class="col-6 mb-3">
                 <label class="mb-2" for="category">Category:</label>
-                <select class="form-select" name="category" id="category">
+                <select class="form-select" name="category" id="category" required>
                     <option value="" selected disabled>Pilih kategori</option>
 
                     <?php
@@ -40,7 +40,7 @@ include_once './templates/layout.php';
             <!-- Date Field (6 columns on row 2) -->
             <div class="col-md-6 mb-3">
                 <label for="date" class="form-label">Date</label>
-                <input type="datetime-local" class="form-control" id="date" name="date">
+                <input type="date" class="form-control" id="date" name="date">
             </div>
 
             <!-- Image Upload Field (6 columns on row 2) -->

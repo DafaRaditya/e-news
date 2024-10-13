@@ -4,48 +4,80 @@ session_start();
 require_once './templates/layout.php';
 require_once './config/db.php';
 
+date_default_timezone_set('Asia/Jakarta');
 
-echo "URL:" . $url . "<br>";
 
-$result = mysqli_query($conn, "SELECT * FROM news");
+$today = date('Y-m-d');
 
-// echo "URL: " . $url . "<br>";
+$sql_terbaru = "SELECT * FROM news WHERE date = '$today' AND status = 'aktif' ORDER BY id DESC"; ;
+
+$result = mysqli_query($conn, $sql_terbaru);
+
 
 function limit_text($text, $limit)
 {
-    if (strlen($text) > $limit) {
-        return substr($text, 0, $limit) . '...';
-    } else {
-        return $text;
-    }
+  if (strlen($text) > $limit) {
+    return substr($text, 0, $limit) . '...';
+  } else {
+    return $text;
+  }
 }
 ?>
 
-<nav>
-    <?= isset($_SESSION['isLogin'])  ? '<a href="/e-news/logout" class="nav-link" >Logout</a>' : ' <a href="login" class="nav-link" >Login</a>' ?>
+<link rel="stylesheet" href="/e-news/contents/assets/css/style.css">
 
+<nav class="navbar navbar-expand-lg navbar-custom">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">E-news</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse ms-auto" id="navbarContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+
+      </ul>
+
+      <form class="d-flex " action="<?= $_SERVER['PHP_SELF'] ?>" role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-search" type="submit"><i class="bi bi-search"></i></button>
+      </form>
+
+      <?= isset($_SESSION['isLogin']) ? '<a href="/e-news/logout" class="btn btn-logout ms-3">Logout</a>' : '<a href="login" class="btn btn-login ms-3">Login</a>' ?>
+    </div>
+  </div>
 </nav>
 
-<?php while ($row = mysqli_fetch_assoc($result)) :
+<main>
+  <!-- berita terbaru -->
+   <h2 class=" text-center fs-2">Berita Terbaru</h2>
+   <div class="horizontal-scroll">
+  <div class="wraper">
+    <?php while ($row = mysqli_fetch_assoc($result)) :
 
-    $title = $row['title'];
-    $content = limit_text($row['content'], 35); // Membatasi sampai 150 karakter
-    $id = $row['id'];
-
-
+      $title = $row['title'];
+      $content = limit_text($row['content'], 55); // Membatasi sampai 150 karakter
+      $id = $row['id'];
+      //
     ?>
-   
-   
-        <div class='card'>
-            <img src="./contents/assets/'<?= $row['image'] ?>" class="img-thumbnail" alt="">
-            <h3><?= $title ?></h3>
-            <p><?= $content?></p>
-            <a href='/e-news/news/{$id}'>Read More</a>
-        </div>
 
-
+    <div class="card" style="width: 18rem;">
+  <img  src='/e-news/contents/assets/images/<?= $row['image'] ?>' class="card-img-top" height="180px" alt="...">
+  <div class="card-body">
+    <h6 class="card-title fs-5"><?= $title ?></h6>
+    <p class="card-text fs-6">Tanggal: <?= $row['date'] ?></p>
+    <p class="card-text fs-6"><?= $content ?></p>
+    <a href="news?id=<?= $id ?>" class="btn btn-primary">Baca</a>
+  </div>
+</div>
 
 <?php endwhile; ?>
-       
-<!-- <h1>Ini halaman index user</h1> -->
+</div>
+
+</div>
+
+
+  </main>

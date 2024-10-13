@@ -29,8 +29,10 @@ $result = mysqli_query($conn, $sql);
     endif;
     ?>
 
-    <div class="d-flex justify-content-center">
-        <a href="createCategory" class="btn btn-primary">Buat category</a>
+
+    <div class="d-flex gap-2 justify-content-center">
+        <a href="createCategory" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i> category</a>
+        <a href="index" class="btn btn-success"><i class="bi bi-gear-fill"></i> Kelola Berita</a>
     </div>
     <h2 class="fs-4 fw-medium">Kelola category</h2>
     <table class="table text-center  table-striped table-hover">
@@ -53,7 +55,7 @@ $result = mysqli_query($conn, $sql);
                             <button onclick="return alert('Ini gada fungsinya yahahha!!')" class="btn btn-warning">Klik saya</button>|
                             <form action="deleteCategory" onsubmit="return confirm('Yakin ingin menghapus data?')" method="post">
                                 <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                                <button type="submit" class="btn btn-danger">Hapus</button>
+                                <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                         </div>
                         </form>
                     </td>

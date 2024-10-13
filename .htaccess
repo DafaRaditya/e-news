@@ -2,7 +2,10 @@ RewriteEngine On
 RewriteBase /e-news/
 
 # Jangan izinkan akses ke direktori tertentu
-RewriteRule ^(config|contents|middlewares)/ - [F,L]
+RewriteRule ^(config|middlewares)/ - [F,L]
+
+RewriteRule ^contents/assets/ - [L]  # Izinkan akses ke assets di dalam contents
+
 
 # Tangani URL untuk berita dengan id dinamis, contoh: berita/1
 RewriteRule ^news/([0-9]+)$ index.php?url=news&id=$1 [QSA,L]

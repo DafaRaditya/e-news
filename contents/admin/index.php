@@ -38,9 +38,9 @@ $result = mysqli_query($conn, $query);
         <?php unset($_SESSION['message']); ?>
     <?php endif; ?>
     <div class="d-flex gap-2 justify-content-center">
-        <a href="create" class="btn btn-primary">Buat Berita</a>
+        <a href="create" class="btn btn-primary"><i class="bi bi-plus-square-fill"></i> Berita</a>  
 
-        <?= $_SESSION['role'] == 'superadmin' ? '<a href="category" class="btn btn-success">Kelola category</a>' : '' ?>
+        <?= $_SESSION['role'] == 'superadmin' ? '<a href="category" class="btn btn-success"> <i class="bi bi-gear-fill"></i> Kelola category</a>' : '' ?>
     </div>
     <h2 class="fs-4 fw-medium">Kelola berita</h2>
     <table class="table table-striped table-hover">
@@ -63,11 +63,10 @@ $result = mysqli_query($conn, $query);
                     <td><?= $i++ ?></td>
                     <td><?= $row['title'] ?></td>
                     <td><?= $row['name'] ?></td> <!-- kategory -->
-                    <td><?= $row['image'] ?></td> <!-- kategory -->
                     <td>
                         <?php if (isset($row['image'])): ?>
                             <img class='img-thumbnail'
-                            src='../../contents/assets/Jujutsu.jpeg ?>'
+                            src='/e-news/contents/assets/images/<?= $row['image']?>'
 
                                 alt='gambar berita'>
                         <?php else: ?>
@@ -81,7 +80,7 @@ $result = mysqli_query($conn, $query);
                     <td>
                         <form action="delete" method="post" onsubmit="return confirm('Yakin ingin menghapus data?')">
                             <input type="hidden" name="id" value="<?= $row['id'] ?>">
-                            <button type="submit" class="btn btn-danger">Hapus</button>
+                            <button type="submit" class="btn btn-danger"><i class="bi bi-trash-fill"></i></button>
                         </form>
                         <!-- <a href="delete?id=<?= $row['id'] ?>" class="btn btn-danger" onclick="confirm('Yakin ingin menghapus data?')">Hapus</a> -->
                     </td>
