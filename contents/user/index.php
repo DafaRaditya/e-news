@@ -6,18 +6,7 @@ require_once './config/db.php';
 
 date_default_timezone_set('Asia/Jakarta');
 
-
-$today = date('Y-m-d');
-
-$sql_terbaru = "SELECT news.*, categories.name FROM news JOIN categories ON news.category_id = categories.id WHERE news.date = '$today' AND news.status = 'aktif' ORDER BY id DESC";;
-
-
-
-
-$result = mysqli_query($conn, $sql_terbaru);
-
-
-
+// fungsi cut kata kata hanya untuk kontent
 function limit_text($text, $limit)
 {
   if (strlen($text) > $limit) {
@@ -26,6 +15,62 @@ function limit_text($text, $limit)
     return $text;
   }
 }
+
+
+function ambilBeritaPerKategori($conn, $category = null, $date = null)
+{
+  $sql = "SELECT news.*, categories.name FROM news 
+  JOIN categories ON news.category_id = categories.id 
+  WHERE news.status = 'aktif'";
+
+  if ($category) {
+    $sql .= " AND categories.name = '$category'";
+  }
+  if ($date) {
+    $sql .= " AND news.date = '$date'";
+  }
+
+  $sql .= " ORDER BY id DESC";
+
+  return mysqli_query($conn, $sql);
+}
+
+// fungsi buat card
+
+function renderNewsCard($row)
+{
+  $title = $row['title'];
+  $content = limit_text($row['content'], 55);
+  $id = $row['id'];
+  $image = $row['image'];
+  $date = $row['date'];
+?>
+  <a href="news?id=<?= $id ?>" class="text-decoration-none">
+    <div class="card" style="width: 18rem;">
+      <img src='/e-news/contents/assets/images/<?= $image ?>' class="card-img-top" height="180px" alt="...">
+      <div class="card-body">
+        <h6 class="card-title fs-5"><?= $title ?></h6>
+        <p class="card-text fs-6">Tanggal: <?= $date ?></p>
+        <p class="card-text fs-6"><?= $content ?></p>
+        <div class="d-flex w-100 justify-content-between">
+          <span class="btn btn-primary w-100 px-0">Baca</span>
+        </div>
+      </div>
+    </div>
+  </a>
+<?php
+}
+
+
+
+$today = date('Y-m-d');
+
+$news_terbaru = ambilBeritaPerKategori($conn, null, $today);
+$news_music = ambilBeritaPerKategori($conn, 'Sport', null)
+
+
+
+
 ?>
 
 
@@ -58,47 +103,42 @@ function limit_text($text, $limit)
 
 <main>
   <div class="container">
-    
+
     <?php if (isset($_SESSION['message'])): ?>
       <div class="alert alert-info">
         <p><?= $_SESSION['message'] ?></p>
       </div>
     <?php endif ?>
-  
+
     <!-- berita terbaru -->
-     <div class="row">
+    <div class="row">
 
-    <h2 class=" text-center fs-2">Berita Terbaru</h2>
-    <div class="horizontal-scroll">
-      <div class="wraper">
-        <?php while ($row = mysqli_fetch_assoc($result)) :
-  
-          $title = $row['title'];
-          $content = limit_text($row['content'], 55); // Membatasi sampai 150 karakter
-          $id = $row['id'];
-          //
-        ?>
-  <a href="news?id=<?= $id ?>" class="text-decoration-none">
-  <div class="card" style="width: 18rem;">
-    <img src='/e-news/contents/assets/images/<?= $row['image'] ?>' class="card-img-top" height="180px" alt="...">
-    <div class="card-body">
-      <h6 class="card-title fs-5"><?= $title ?></h6>
-      <p class="card-text fs-6">Tanggal: <?= $row['date'] ?></p>
-      <p class="card-text fs-6"><?= $content ?></p>
-      <div class="d-flex w-100 justify-content-between">
-        <span class="btn btn-primary w-100 px-0">Baca</span>
+      <h2 class=" text-center fs-2">Berita Terbaru</h2>
+      <div class="horizontal-scroll">
+        <div class="wraper">
+          <?php while ($row = mysqli_fetch_assoc($news_terbaru)) {
+            echo renderNewsCard($row);
+          } ?>
+
+        </div>
+
       </div>
     </div>
-  </div>
-</a>
-        <?php endwhile; ?>
+
+    <div class="row">
+
+      <h2 class=" text-center fs-2">Music</h2>
+      <div class="horizontal-scroll">
+        <div class="wraper">
+          <?php while($row_music = mysqli_fetch_assoc($news_music)){
+            echo renderNewsCard($row_music);
+          } ?>
+        </div>
       </div>
-  
     </div>
-  </div>
 
 
-<?php  ?>
+    <?php  ?>
 
 
   </div>
