@@ -6,45 +6,57 @@ require_once './config/db.php';
 
 date_default_timezone_set('Asia/Jakarta');
 
-// fungsi cut kata kata hanya untuk kontent
+// Fungsi untuk membatasi jumlah kata dalam teks
 function limit_text($text, $limit)
 {
   if (strlen($text) > $limit) {
-    return substr($text, 0, $limit) . '...';
+    return substr($text, 0, $limit) . '...'; // Potong teks klau lebih batas
   } else {
-    return $text;
+    return $text; // Teks ga dipotong klo ga lebih
   }
 }
 
 
+// Fungsi untuk mengambil berita berdasarkan kategori atau tanggal
+
 function ambilBeritaPerKategori($conn, $category = null, $date = null)
 {
+  // query default yg mengambil berita aktif aja
   $sql = "SELECT news.*, categories.name FROM news 
   JOIN categories ON news.category_id = categories.id 
   WHERE news.status = 'aktif'";
 
+// kondisi kalau param kategori di isi dan dikondisikan di query
   if ($category) {
     $sql .= " AND categories.name = '$category'";
   }
+
+//sama juga kondisi kalau param date di isi dan dikondisikan di query
   if ($date) {
     $sql .= " AND news.date = '$date'";
   }
 
+  // klau dah lewatin kondisi diatas tambahin ini diakhirnya biar dia mengurutkan berdasarkan id 
   $sql .= " ORDER BY id DESC";
 
+  // eksekusi query
   return mysqli_query($conn, $sql);
 }
 
 // fungsi buat card
 
+// Fungsi untuk menampilkan berita dalam bentuk card
 function renderNewsCard($row)
 {
+  // data yg diambil dari param diatas 
   $title = $row['title'];
   $content = limit_text($row['content'], 55);
   $id = $row['id'];
   $image = $row['image'];
   $date = $row['date'];
 ?>
+  <!-- HTML untuk card berita -->
+
   <a href="news?id=<?= $id ?>" class="text-decoration-none">
     <div class="card" style="width: 18rem;">
       <img src='/e-news/contents/assets/images/<?= $image ?>' class="card-img-top" height="180px" alt="...">
@@ -117,6 +129,8 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null)
       <div class="horizontal-scroll">
         <div class="wraper">
           <?php while ($row = mysqli_fetch_assoc($news_terbaru)) {
+            // var_dump($row);
+            // data yg dikirim ke param row berupa harus array
             echo renderNewsCard($row);
           } ?>
 
