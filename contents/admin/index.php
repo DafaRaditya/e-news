@@ -35,12 +35,7 @@ $query = "SELECT news.*,user.username,categories.name FROM news JOIN user ON new
 
 $result = mysqli_query($conn, $query);
 
-function updateStatus($id, $status)
-{
-    global $conn;
-    $query = "UPDATE news SET status = '$status' WHERE id = $id";
-    mysqli_query($conn, $query);
-}
+
 
 ?>
 

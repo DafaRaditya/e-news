@@ -52,12 +52,13 @@
   font-weight: var(--font-semi-bold);
 }
 
-
+/* berita terbaru scroll kanan */
 .wraper{
   display: flex;
   width: max-content;
   gap: 1rem;
 }
+
 .horizontal-scroll{
   width: 100%;
   overflow-x: scroll;
@@ -67,3 +68,6 @@
 .horizontal-scroll::-webkit-scrollbar{
   display: none;
 }
+
+
+/* card berita */

@@ -7,7 +7,7 @@ if (isset($_SESSION['isLogin']) && $_SESSION['isLogin'] == true) {
     $_SESSION['message'] = 'Anda telah Logout';
     session_destroy();  
     
-    header('Location: login');  // Redirect ke halaman login
+    header('Location: index');  // Redirect ke halaman Index
     exit();
 
 } else {

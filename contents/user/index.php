@@ -9,9 +9,13 @@ date_default_timezone_set('Asia/Jakarta');
 
 $today = date('Y-m-d');
 
-$sql_terbaru = "SELECT * FROM news WHERE date = '$today' AND status = 'aktif' ORDER BY id DESC"; ;
+$sql_terbaru = "SELECT news.*, categories.name FROM news JOIN categories ON news.category_id = categories.id WHERE news.date = '$today' AND news.status = 'aktif' ORDER BY id DESC";;
+
+
+
 
 $result = mysqli_query($conn, $sql_terbaru);
+
 
 
 function limit_text($text, $limit)
@@ -23,6 +27,7 @@ function limit_text($text, $limit)
   }
 }
 ?>
+
 
 <link rel="stylesheet" href="/e-news/contents/assets/css/style.css">
 
@@ -52,32 +57,49 @@ function limit_text($text, $limit)
 </nav>
 
 <main>
-  <!-- berita terbaru -->
-   <h2 class=" text-center fs-2">Berita Terbaru</h2>
-   <div class="horizontal-scroll">
-  <div class="wraper">
-    <?php while ($row = mysqli_fetch_assoc($result)) :
+  <div class="container">
+    
+    <?php if (isset($_SESSION['message'])): ?>
+      <div class="alert alert-info">
+        <p><?= $_SESSION['message'] ?></p>
+      </div>
+    <?php endif ?>
+  
+    <!-- berita terbaru -->
+     <div class="row">
 
-      $title = $row['title'];
-      $content = limit_text($row['content'], 55); // Membatasi sampai 150 karakter
-      $id = $row['id'];
-      //
-    ?>
-
-    <div class="card" style="width: 18rem;">
-  <img  src='/e-news/contents/assets/images/<?= $row['image'] ?>' class="card-img-top" height="180px" alt="...">
-  <div class="card-body">
-    <h6 class="card-title fs-5"><?= $title ?></h6>
-    <p class="card-text fs-6">Tanggal: <?= $row['date'] ?></p>
-    <p class="card-text fs-6"><?= $content ?></p>
-    <a href="news?id=<?= $id ?>" class="btn btn-primary">Baca</a>
+    <h2 class=" text-center fs-2">Berita Terbaru</h2>
+    <div class="horizontal-scroll">
+      <div class="wraper">
+        <?php while ($row = mysqli_fetch_assoc($result)) :
+  
+          $title = $row['title'];
+          $content = limit_text($row['content'], 55); // Membatasi sampai 150 karakter
+          $id = $row['id'];
+          //
+        ?>
+  <a href="news?id=<?= $id ?>" class="text-decoration-none">
+  <div class="card" style="width: 18rem;">
+    <img src='/e-news/contents/assets/images/<?= $row['image'] ?>' class="card-img-top" height="180px" alt="...">
+    <div class="card-body">
+      <h6 class="card-title fs-5"><?= $title ?></h6>
+      <p class="card-text fs-6">Tanggal: <?= $row['date'] ?></p>
+      <p class="card-text fs-6"><?= $content ?></p>
+      <div class="d-flex w-100 justify-content-between">
+        <span class="btn btn-primary w-100 px-0">Baca</span>
+      </div>
+    </div>
   </div>
-</div>
+</a>
+        <?php endwhile; ?>
+      </div>
+  
+    </div>
+  </div>
 
-<?php endwhile; ?>
-</div>
 
-</div>
+<?php  ?>
 
 
-  </main>
+  </div>
+</main>
