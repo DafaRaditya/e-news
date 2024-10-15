@@ -6,13 +6,23 @@ require_once './config/db.php';
 isNotLogin();
 
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
-    $title = $_POST['title'];
-    $category = $_POST['category'];
-    $content = $_POST['content'];
-    $date = $_POST['date'];
-    // $image = $_POST['image'];
+
+    // sanitasi data
+    $title = mysqli_escape_string($conn, $_POST['title']);
+    $category = mysqli_escape_string($conn, $_POST['category']);
+    $content = mysqli_escape_string($conn, $_POST['content']);
+    $date = mysqli_escape_string($conn, $_POST['date']);
     $status = isset($_POST['status']) ? $_POST['status'] : 'nonaktif';
     $user_id = $_SESSION['userId'];
+
+    // validasi data
+    if(empty($title) || empty($category) || empty($content) || empty($date)) {
+        $_SESSION['message'] = "Data Tidak boleh kosong";
+        header('Location: index');
+        exit();
+
+    }    
+
 
     // uploadGambar
     $foto_produk = null;

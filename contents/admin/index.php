@@ -85,8 +85,8 @@ $result = mysqli_query($conn, $query);
             <tbody>
                 <tr>
                     <td><?= $i++ ?></td>
-                    <td><?= $row['title'] ?></td>
-                    <td><?= $row['name'] ?></td> <!-- kategory -->
+                    <td><?= htmlspecialchars($row['title']) ?></td>
+                    <td><?= htmlspecialchars($row['name']) ?></td> <!-- kategory -->
                     <td>
                         <?php if (isset($row['image'])): ?>
                             <img class='img-thumbnail'
@@ -99,7 +99,7 @@ $result = mysqli_query($conn, $query);
 
                     </td>
 
-                    <td><?= $row['username'] ?></td>
+                    <td><?= htmlspecialchars($row['username']) ?></td>
                     <td>
 
                         <?php if ($row['status'] == 'aktif') : ?>
