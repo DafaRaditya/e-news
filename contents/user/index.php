@@ -55,8 +55,8 @@ function renderNewsCard($row)
   $image = $row['image'];
   $date = $row['date'];
 ?>
-  <!-- HTML untuk card berita -->
 
+  <!-- HTML untuk card berita -->
   <a href="news?id=<?= $id ?>" class="text-decoration-none">
     <div class="card" style="width: 18rem;">
       <img src='/e-news/contents/assets/images/<?= $image ?>' class="card-img-top" height="180px" alt="...">
@@ -108,18 +108,22 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null)
         <button class="btn btn-search" type="submit"><i class="bi bi-search"></i></button>
       </form>
 
-      <?= isset($_SESSION['isLogin']) ? '<a href="/e-news/logout" class="btn btn-logout ms-3">Logout</a>' : '<a href="login" class="btn btn-login ms-3">Login</a>' ?>
+      <?= isset($_SESSION['isLogin']) ? '<a href="/e-news/logout" class="btn btn-logout ms-3">Logout</a>' : '<a href="register" class="btn btn-login ms-3">Register</a><a href="login" class="btn btn-login ms-1">Login</a>' ?>
     </div>
   </div>
 </nav>
 
+
+
 <main>
-  <div class="container">
+  <div class="container mt-5 ">
 
     <?php if (isset($_SESSION['message'])): ?>
-      <div class="alert alert-info">
+      <div class="w-50 mx-auto alert alert-info alert-dismissible mb-5 text-center">
         <p><?= $_SESSION['message'] ?></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
+      <?php unset($_SESSION['message']); ?>
     <?php endif ?>
 
     <!-- berita terbaru -->
@@ -130,6 +134,7 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null)
         <div class="wraper">
           <?php while ($row = mysqli_fetch_assoc($news_terbaru)) {
             // var_dump($row);
+
             // data yg dikirim ke param row berupa harus array
             echo renderNewsCard($row);
           } ?>

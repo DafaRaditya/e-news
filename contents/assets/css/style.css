@@ -1,17 +1,17 @@
 :root {
-  --text-color: #ffffff;    /* Warna teks */
-  --text-color-dark: #000000;    /* Warna teks */
-  
+  --text-color: #ffffff; /* Warna teks */
+  --text-color-dark: #000000; /* Warna teks */
+
   --primary-background: #f8f9fa; /* Latar belakang putih */
 
   --primary-color: #0056b3; /* Warna tombol utama */
-  --buton-logout-color: #5DC6F4; /* Warna tombol logout */
+  --secondary-color: #69b7fc; /* Warna tombol secondary */
+  --buton-logout-color: #b8e2f4; /* Warna tombol logout */
 
   --font-medium: 400;
   --font-semi-bold: 600;
   --font-bold: 700;
 }
-
 
 .navbar-custom {
   background-color: var(--primary-background); /* Latar belakang putih */
@@ -53,21 +53,20 @@
 }
 
 /* berita terbaru scroll kanan */
-.wraper{
+.wraper {
   display: flex;
   width: max-content;
   gap: 1rem;
 }
 
-.horizontal-scroll{
+.horizontal-scroll {
   width: 100%;
   overflow-x: scroll;
   scrollbar-color: transparent transparent;
 }
 
-.horizontal-scroll::-webkit-scrollbar{
+.horizontal-scroll::-webkit-scrollbar {
   display: none;
 }
-
 
 /* card berita */

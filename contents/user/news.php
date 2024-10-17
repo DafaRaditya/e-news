@@ -14,7 +14,7 @@ if ($id) :
         $row = mysqli_fetch_assoc($result);
 ?>
 
-<img src="/contents/assets/<?= $row['image'] ?>" alt="gambar berita">
+<img src="/e-news/contents/assets/images/<?= $row['image'] ?>" alt="gambar berita">
 
 <h1><?= $row['title'] ?></h1>
 <h5>Kategori : <?= $row['name'] ?></h5>

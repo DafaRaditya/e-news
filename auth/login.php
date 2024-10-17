@@ -47,12 +47,4 @@ include_once './templates/layout.php';
     </div>
 </div>
 
-<script>
-    setTimeout(function(){
-        let alertBox = document.getElementById('alert-box')
-        if(alertBox) {
-            let alert = new bootstrap.Alert(alertBox)
-            alert.close(); 
-        }
-    }, 2500)
-</script>
+<script src="/e-news/contents/assets/js/"></script>

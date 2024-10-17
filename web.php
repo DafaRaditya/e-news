@@ -34,6 +34,12 @@ switch ($url) {
     case 'login-process':
         require_once 'auth/loginProcess.php';
         break;
+    case 'register':
+        require_once 'auth/register.php';
+        break;
+    case 'register-process':
+        require_once 'auth/registerProcess.php';
+        break;
     case 'logout':
         require_once 'auth/logout.php';
         break;

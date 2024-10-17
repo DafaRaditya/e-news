@@ -8,7 +8,7 @@ include_once './templates/layout.php';
 
 // menangani update status
 
-if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['id']) && isset($_POST['status'])) {
+if (isset($_POST['update']) && isset($_POST['id']) && isset($_POST['status'])) {
     $id = intval($_POST['id']);
     $status = $_POST['status'];
 
@@ -115,7 +115,7 @@ $result = mysqli_query($conn, $query);
                             <form action="" method="post" onsubmit="return confirm('Yakin ingin mengubah status?')">
                                 <input type="hidden" name="id" value="<?= $row['id'] ?>">
                                 <input type="hidden" name="status" value="<?= $row['status'] == 'aktif' ? 'nonaktif' : 'aktif' ?>">
-                                <button type="submit" class="btn <?= $row['status'] == 'aktif' ? 'btn-danger' : 'btn-success' ?>">
+                                <button type="submit" name="update" class="btn <?= $row['status'] == 'aktif' ? 'btn-danger' : 'btn-success' ?>">
                                     <?= $row['status'] == 'aktif' ? 'Nonaktif' : 'Aktif' ?>
                                 </button>
                             </form>
@@ -134,13 +134,4 @@ $result = mysqli_query($conn, $query);
             </tbody>
     </table>
 </div>
-
-<script>
-    setTimeout(function() {
-        let alertBox = document.getElementById('alert-box')
-        if (alertBox) {
-            let alert = new bootstrap.Alert(alertBox)
-            alert.close();
-        }
-    }, 2500)
-</script>
+<script src="/e-news/contents/assets/js/"></script>

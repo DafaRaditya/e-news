@@ -7,6 +7,8 @@ switch ($url) {
         case 'index':
         case 'login':
         case 'login-process':
+        case 'register':
+        case 'register-process':
         case 'admin':
         case 'admin/index':
         case 'admin/create':
