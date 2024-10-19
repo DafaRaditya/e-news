@@ -5,6 +5,7 @@ $url = isset($_GET['url']) ? rtrim($_GET['url'], '/') : 'index';
 
 switch ($url) {
         case 'index':
+        case 'search':
         case 'login':
         case 'login-process':
         case 'register':

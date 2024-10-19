@@ -3,6 +3,9 @@ switch ($url) {
     case 'index':
         require_once 'contents/user/index.php';
         break;
+    case 'search':
+        require_once 'contents/user/search.php';
+        break;
     case 'admin':
     case 'admin/index':
         require_once 'contents/admin/index.php';

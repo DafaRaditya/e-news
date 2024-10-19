@@ -47,7 +47,7 @@ $result = mysqli_query($conn, $query);
     }
 </style>
 <nav class="nav">
-    <a href="../logout" class="nav-link">Logout</a>
+    <a href="/e-news/logout" class="nav-link">Logout</a>
     <p>Halo, <?= $_SESSION['username'] ?></p>
 
 </nav>

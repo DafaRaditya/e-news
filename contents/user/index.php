@@ -18,7 +18,6 @@ function limit_text($text, $limit)
 
 
 // Fungsi untuk mengambil berita berdasarkan kategori atau tanggal
-
 function ambilBeritaPerKategori($conn, $category = null, $date = null)
 {
   // query default yg mengambil berita aktif aja
@@ -43,7 +42,7 @@ function ambilBeritaPerKategori($conn, $category = null, $date = null)
   return mysqli_query($conn, $sql);
 }
 
-// fungsi buat card
+// fungsi yg ngebuat card
 
 // Fungsi untuk menampilkan berita dalam bentuk card
 function renderNewsCard($row)
@@ -78,7 +77,10 @@ function renderNewsCard($row)
 $today = date('Y-m-d');
 
 $news_terbaru = ambilBeritaPerKategori($conn, null, $today);
-$news_music = ambilBeritaPerKategori($conn, 'Sport', null)
+$news_music = ambilBeritaPerKategori($conn, 'Sport', null);
+
+
+
 
 
 
@@ -103,11 +105,12 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null)
 
       </ul>
 
-      <form class="d-flex " action="<?= $_SERVER['PHP_SELF'] ?>" role="search">
+      <!-- <form class="d-flex " action="<?= $_SERVER['PHP_SELF'] ?>" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-search" type="submit"><i class="bi bi-search"></i></button>
-      </form>
+        <button class="btn btn-search" name="search" type="submit"><i class="bi bi-search"></i></button>
+      </form> -->
 
+      <a href="search" class="pb-2 ps-2 pt-2" style="color: black;"> <i class="bi bi-search"></i></a>
       <?= isset($_SESSION['isLogin']) ? '<a href="/e-news/logout" class="btn btn-logout ms-3">Logout</a>' : '<a href="register" class="btn btn-login ms-3">Register</a><a href="login" class="btn btn-login ms-1">Login</a>' ?>
     </div>
   </div>

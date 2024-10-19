@@ -11,7 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST") {
 
  $_SESSION['isLogin'] = false;
 
-    $query = "SELECT * FROM user WHERE username = '$username' AND password = '$password'";
+    $query = "SELECT * FROM user WHERE username = '$username' AND password = SHA1('$password')";
 
     $result = mysqli_query($conn, $query);
     

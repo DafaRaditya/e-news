@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if (mysqli_affected_rows($conn) > 0) {
             $_SESSION['message'] = "Akun berhasil dibuat";
             $_SESSION['isLogin'] = true;
+            $_SESSION['role'] = 'user';
             $_SESSION['username'] = $username;
             $_SESSION['userId'] = $user['id'];
 

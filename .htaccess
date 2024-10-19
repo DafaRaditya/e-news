@@ -10,6 +10,10 @@ RewriteRule ^contents/assets/ - [L]  # Izinkan akses ke assets di dalam contents
 # Tangani URL untuk berita dengan id dinamis, contoh: berita/1
 RewriteRule ^news/([0-9]+)$ index.php?url=news&id=$1 [QSA,L]
 
+# Tangani URL untuk pencarian, contoh: search/argumen
+RewriteRule ^search/([^/]+)$ index.php?url=search&keyword=$1 [QSA,L]
+
+
 # Jika bukan direktori atau file, lempar ke index.php dengan parameter URL
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-f
