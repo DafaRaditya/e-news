@@ -105,10 +105,7 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null);
 
       </ul>
 
-      <!-- <form class="d-flex " action="<?= $_SERVER['PHP_SELF'] ?>" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-search" name="search" type="submit"><i class="bi bi-search"></i></button>
-      </form> -->
+     
 
       <a href="search" class="pb-2 ps-2 pt-2" style="color: black;"> <i class="bi bi-search"></i></a>
       <?= isset($_SESSION['isLogin']) ? '<a href="/e-news/logout" class="btn btn-logout ms-3">Logout</a>' : '<a href="register" class="btn btn-login ms-3">Register</a><a href="login" class="btn btn-login ms-1">Login</a>' ?>
