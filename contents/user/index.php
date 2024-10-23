@@ -25,12 +25,12 @@ function ambilBeritaPerKategori($conn, $category = null, $date = null)
   JOIN categories ON news.category_id = categories.id 
   WHERE news.status = 'aktif'";
 
-// kondisi kalau param kategori di isi dan dikondisikan di query
+  // kondisi kalau param kategori di isi dan dikondisikan di query
   if ($category) {
     $sql .= " AND categories.name = '$category'";
   }
 
-//sama juga kondisi kalau param date di isi dan dikondisikan di query
+  //sama juga kondisi kalau param date di isi dan dikondisikan di query
   if ($date) {
     $sql .= " AND news.date = '$date'";
   }
@@ -87,31 +87,56 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null);
 
 ?>
 
-
+<script src="https://cdn.tailwindcss.com">
+</script>
 <link rel="stylesheet" href="/e-news/contents/assets/css/style.css">
 
-<nav class="navbar navbar-expand-lg navbar-custom">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">E-news</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+<nav class="bg-white border-b-2 border-gray-300">
+  <div class="container mx-auto flex items-center justify-between p-4">
+    <a href="#" class="text-blue-600 font-bold text-lg">E-news</a>
+    <button class="text-blue-600 lg:hidden" type="button" aria-expanded="false" aria-label="Toggle navigation" onclick="toggleNavbar()">
+      <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+      </svg>
     </button>
 
-    <div class="collapse navbar-collapse ms-auto" id="navbarContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
-        </li>
-
+    <div class="hidden lg:flex lg:items-center lg:space-x-4" id="navbarContent">
+      <ul class="flex space-x-4">
       </ul>
 
-     
-
-      <a href="search" class="pb-2 ps-2 pt-2" style="color: black;"> <i class="bi bi-search"></i></a>
-      <?= isset($_SESSION['isLogin']) ? '<a href="/e-news/logout" class="btn btn-logout ms-3">Logout</a>' : '<a href="register" class="btn btn-login ms-3">Register</a><a href="login" class="btn btn-login ms-1">Login</a>' ?>
+      <a href="search" class="text-black px-2">
+        <i class="bi bi-search"></i>
+      </a>
+      <?= isset($_SESSION['isLogin']) ?
+        '<a href="/e-news/logout" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 font-semibold">Logout</a>' :
+        '<a href="register" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 font-semibold">Register</a>
+            <a href="login" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700 font-semibold">Login</a>' ?>
     </div>
   </div>
+
+  <div class="lg:hidden" id="mobileNavbarContent">
+    <ul class="flex flex-col space-y-2 p-4">
+      <li><a href="#" class="text-gray-600 hover:text-blue-600">Home</a></li>
+      <a href="search" class="text-black">
+        <i class="bi bi-search"></i>
+      </a>
+      <?= isset($_SESSION['isLogin']) ?
+        '<a href="/e-news/logout" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Logout</a>' :
+        '<a href="register" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Register</a>
+            <a href="login" class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700">Login</a>' ?>
+    </ul>
+  </div>
 </nav>
+
+<script>
+  function toggleNavbar() {
+    const navbarContent = document.getElementById('navbarContent');
+    const mobileNavbarContent = document.getElementById('mobileNavbarContent');
+    navbarContent.classList.toggle('hidden');
+    mobileNavbarContent.classList.toggle('hidden');
+  }
+</script>
+
 
 
 
@@ -149,7 +174,7 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null);
       <h2 class=" text-center fs-2">Music</h2>
       <div class="horizontal-scroll">
         <div class="wraper">
-          <?php while($row_music = mysqli_fetch_assoc($news_music)){
+          <?php while ($row_music = mysqli_fetch_assoc($news_music)) {
             echo renderNewsCard($row_music);
           } ?>
         </div>
