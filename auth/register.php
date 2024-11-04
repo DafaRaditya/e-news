@@ -45,11 +45,17 @@ include_once './templates/layout.php';
 
                 <!-- Google Login Anchor -->
                 <div class="mt-3 text-center">
-                    <a href="login-with-google" class="btn btn-danger w-100"><i class="bi bi-google"></i> Register with Google</a>
+                    <span class="text-muted">Or continue with</span><br>
+                    <div class="mt-2 gap-2">
+
+                        <img src="https://img.icons8.com/?size=100&id=17949&format=png&color=000000" height="30" alt="">
+                        <img src="https://img.icons8.com/?size=100&id=118497&format=png&color=000000" height="35" alt="">
+                    </div>
+
                 </div>
 
                 <div class="mt-3 text-center">
-                    <a href="login">Already have an account? Login</a>
+                Already have an account? <a href="login">Login</a>
                 </div>
             </form>
         </div>

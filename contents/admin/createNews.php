@@ -6,6 +6,17 @@ isNotLogin();
 require_once './config/db.php';
 include_once './templates/layout.php';
 ?>
+
+
+
+<link rel="stylesheet" href="https://cdn.ckeditor.com/ckeditor5/43.3.0/ckeditor5.css" />
+
+<style>
+    .ck-editor__editable[role="textbox"] {
+        min-height: 200px;
+    }
+</style>
+
 <div class="container mt-5">
     <form action="store" method="POST" enctype="multipart/form-data">
         <div class="row">
@@ -33,8 +44,11 @@ include_once './templates/layout.php';
 
             <!-- Content Field (12 columns full width) -->
             <div class="col-12 mb-3">
-                <label for="content" class="form-label">Content</label>
-                <textarea class="form-control" id="content" name="content" rows="5" required></textarea>
+
+                <!-- teks berita -->
+                <textarea name="content" id="editor" ></textarea>
+
+
             </div>
 
             <!-- Date Field (6 columns on row 2) -->
@@ -71,3 +85,35 @@ include_once './templates/layout.php';
     </form>
 
 </div>
+
+<script type="importmap">
+    {
+        "imports": {
+            "ckeditor5": "https://cdn.ckeditor.com/ckeditor5/43.3.0/ckeditor5.js",
+            "ckeditor5/": "https://cdn.ckeditor.com/ckeditor5/43.3.0/"
+        }
+    }
+</script>
+
+
+<script type="module">
+    import {
+        ClassicEditor,
+        Essentials,
+        Bold,
+        Italic,
+        Font,
+        Paragraph
+    } from 'ckeditor5';
+
+    ClassicEditor
+        .create( document.querySelector( '#editor' ), {
+            plugins: [ Essentials, Bold, Italic, Font, Paragraph ],
+            toolbar: [
+                'undo', 'redo', '|', 'bold', 'italic', '|',
+                'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor'
+            ]
+        } )
+        // .then( /* ... */ )
+        // .catch( /* ... */ );
+</script>

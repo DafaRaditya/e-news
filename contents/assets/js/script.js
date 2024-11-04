@@ -5,3 +5,11 @@ setTimeout(function(){
         alert.close(); 
     }
 }, 2500)
+
+
+function toggleNavbar() {
+    const navbarContent = document.getElementById('navbarContent');
+    const mobileNavbarContent = document.getElementById('mobileNavbarContent');
+    navbarContent.classList.toggle('hidden');
+    mobileNavbarContent.classList.toggle('hidden');
+  }

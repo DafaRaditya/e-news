@@ -67,7 +67,6 @@ if (isset($_GET['keyword'])) {
 
 <script src="https://cdn.tailwindcss.com">
 </script>
-<!-- <link rel="stylesheet" href="/e-news/contents/assets/css/style.css"> -->
 
 
 <main>

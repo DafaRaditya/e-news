@@ -40,7 +40,7 @@ include_once './templates/layout.php';
                 </div>
                 <button type="submit" class="btn btn-primary w-100">Login</button>
                 <div class="mt-3 text-center">
-                    <a href="#">Dont have acount?</a>
+                    <a href="register">Dont have acount?</a>
                 </div>
             </form>
         </div>

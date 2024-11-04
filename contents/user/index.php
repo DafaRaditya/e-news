@@ -77,7 +77,8 @@ function renderNewsCard($row)
 $today = date('Y-m-d');
 
 $news_terbaru = ambilBeritaPerKategori($conn, null, $today);
-$news_music = ambilBeritaPerKategori($conn, 'Sport', null);
+$news_music = ambilBeritaPerKategori($conn, 'Music', null);
+$news_sport = ambilBeritaPerKategori($conn, 'Sport', null);
 
 
 
@@ -129,12 +130,7 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null);
 </nav>
 
 <script>
-  function toggleNavbar() {
-    const navbarContent = document.getElementById('navbarContent');
-    const mobileNavbarContent = document.getElementById('mobileNavbarContent');
-    navbarContent.classList.toggle('hidden');
-    mobileNavbarContent.classList.toggle('hidden');
-  }
+
 </script>
 
 
@@ -176,6 +172,18 @@ $news_music = ambilBeritaPerKategori($conn, 'Sport', null);
         <div class="wraper">
           <?php while ($row_music = mysqli_fetch_assoc($news_music)) {
             echo renderNewsCard($row_music);
+          } ?>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+
+      <h2 class=" text-center fs-2">Sport</h2>
+      <div class="horizontal-scroll">
+        <div class="wraper">
+          <?php while ($rows_sport = mysqli_fetch_assoc($news_sport)) {
+            echo renderNewsCard($rows_sport);
           } ?>
         </div>
       </div>
